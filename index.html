@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary, Ramani!</title>
+    <title>Happy Anniversary, Ramani ❤️</title>
     <style>
         /* --- General Styles --- */
+        * {
+            box-sizing: border-box;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
@@ -19,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* --- Envelope & Seal Screen --- */
+        /* --- Screen 1: Envelope & Wax Seal --- */
         #envelope-screen {
             display: flex;
             flex-direction: column;
@@ -30,106 +34,200 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #fdfaf6;
+            background: radial-gradient(circle, #fff9f5 0%, #f7ede2 100%);
             z-index: 10;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.2s ease, transform 1.2s ease;
         }
 
         .instruction {
             margin-bottom: 30px;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #d6336c;
             font-style: italic;
             animation: pulse 2s infinite;
+            text-align: center;
+            padding: 0 20px;
         }
 
         .seal {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #b31217, #e52d27);
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle at 30% 30%, #e52d27, #b31217 70%, #7a080b 100%);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: gold;
-            font-size: 1.5rem;
+            color: #ffd700;
+            font-size: 1.6rem;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            box-shadow: 0 8px 25px rgba(179, 18, 23, 0.4), 
+                        inset 0 0 15px rgba(0, 0, 0, 0.4),
+                        inset 0 2px 5px rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            border: 3px solid #8a0c10;
+            border: 4px double #9e1b1f;
             user-select: none;
-            transition: transform 0.2s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .seal:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
-        /* --- Letter Screen --- */
+        /* --- Screen 2: Letter & Gallery --- */
         #letter-screen {
             display: none;
             opacity: 0;
             flex-direction: column;
             align-items: center;
-            max-width: 600px;
-            padding: 40px 20px;
+            width: 100%;
+            max-width: 720px;
+            padding: 40px 20px 60px;
             text-align: center;
             transition: opacity 1.5s ease;
         }
 
         .letter-content {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-            border: 1px solid #f0e6d2;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+            margin-bottom: 45px;
+            border: 1px solid #f2e6d8;
+            width: 100%;
         }
 
         h1 {
             color: #d6336c;
             font-size: 2rem;
+            margin-top: 0;
             margin-bottom: 20px;
         }
 
         p {
             line-height: 1.8;
             font-size: 1.1rem;
+            margin-bottom: 18px;
         }
 
-        /* --- Gallery Section --- */
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            font-weight: bold;
+            color: #b31217;
+        }
+
+        .section-title {
+            color: #d6336c;
+            margin-bottom: 8px;
+            font-size: 1.75rem;
+        }
+
+        .section-subtitle {
+            color: #888;
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        /* --- 2-Column Gallery Grid --- */
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
             width: 100%;
-            margin-top: 20px;
+        }
+
+        @media (max-width: 520px) {
+            .gallery-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
         }
 
         .gallery-item {
             width: 100%;
-            height: 250px;
-            background-color: #eee;
-            border-radius: 8px;
+            height: 280px;
+            background-color: #f8edeb;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            position: relative;
+            cursor: pointer;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            object-position: center center;
+            transition: transform 0.4s ease;
         }
 
-        .gallery-item img:hover {
+        .gallery-item:hover img {
             transform: scale(1.05);
         }
 
-        /* Animations */
+        .caption-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+            color: #fff;
+            padding: 20px 12px 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0.95;
+        }
+
+        /* --- Fullscreen Lightbox Modal --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #lightbox img {
+            max-width: 95%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        #lightbox-caption {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 85%;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #fff;
+            font-size: 2.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.06); }
             100% { transform: scale(1); }
         }
     </style>
@@ -138,7 +236,7 @@
 
     <!-- SCREEN 1: The Seal -->
     <div id="envelope-screen">
-        <p class="instruction">💋 Kiss (tap) the seal to open</p>
+        <p class="instruction">💋 Kiss (tap) the seal to open your letter</p>
         <div class="seal" id="seal" onclick="openLetter()">
             S ❤️ R
         </div>
@@ -149,52 +247,35 @@
         <div class="letter-content">
             <h1>Happy Anniversary, Ramani ❤️</h1>
             <p>My dearest Cherry,</p>
-            <p>Write your beautiful anniversary message here. You can make this as long or as short as you want. When she scrolls down, she will see all the memories you've put together.</p>
-            <p>Forever yours,<br>Srikar</p>
+            <p>From our cozy date nights and the night I asked you to marry me, to wandering through canyons, stargazing under desert skies, and celebrating every little milestone at home—every moment with you is my favorite memory.</p>
+            <p>Thank you for being my partner, my best friend, and my greatest adventure. Here is a look back at some of the moments that made our story so special.</p>
+            <p class="signature">Forever yours,<br>Srikar</p>
         </div>
 
-        <h2 style="color: #d6336c; margin-bottom: 20px;">Our Memories</h2>
+        <h2 class="section-title">Our Story in 10 Moments</h2>
+        <p class="section-subtitle">Tap any photo to view it full screen</p>
         
-        <!-- Gallery Grid -->
+        <!-- Gallery Grid with Original Filenames -->
         <div class="gallery-container">
-            <!-- Replace 'images/photo1.jpg' with your actual file names once inside your folder -->
-            <div class="gallery-item">
-                <img src="images/photo1.jpg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/300x400/ffe6ea/d6336c?text=Photo+1'">
-            </div>
-            <div class="gallery-item">
-                <img src="images/photo2.jpg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/300x400/ffe6ea/d6336c?text=Photo+2'">
-            </div>
-            <div class="gallery-item">
-                <img src="images/photo3.jpg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/300x400/ffe6ea/d6336c?text=Photo+3'">
-            </div>
-            <div class="gallery-item">
-                <img src="images/photo4.jpg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/300x400/ffe6ea/d6336c?text=Photo+4'">
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript for the opening animation -->
-    <script>
-        function openLetter() {
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const letterScreen = document.getElementById('letter-screen');
-
-            // Fade out the seal screen
-            envelopeScreen.style.opacity = '0';
             
-            // Wait for fade out, then hide it and show the letter
-            setTimeout(() => {
-                envelopeScreen.style.display = 'none';
-                letterScreen.style.display = 'flex';
-                
-                // Trigger reflow to ensure the fade-in works
-                void letterScreen.offsetWidth; 
-                
-                // Fade in the letter and gallery
-                letterScreen.style.opacity = '1';
-                window.scrollTo(0, 0); // Ensure they start at the top of the letter
-            }, 1000); // 1 second delay matches the CSS transition
-        }
-    </script>
-</body>
-</html>
+            <!-- Row 1: Early Date Nights -->
+            <div class="gallery-item" onclick="openLightbox('images/PXL_20231005_231701443(1).jpg', 'Our cozy dinner date night ❤️')">
+                <img src="images/PXL_20231005_231701443(1).jpg" alt="Dinner Date" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Dinner+Date'">
+                <div class="caption-overlay">Date Night</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/20231008_195418(1).jpg', 'That smile that stole my heart ✨')">
+                <img src="images/20231008_195418(1).jpg" alt="Ramani in Yellow" style="object-position: center 25%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Yellow+Saree'">
+                <div class="caption-overlay">Golden Glow</div>
+            </div>
+
+            <!-- Row 2: The Proposal -->
+            <div class="gallery-item" onclick="openLightbox('images/PXL_20231014_235847709.jpg', 'The easiest question I ever asked 🌹')">
+                <img src="images/PXL_20231014_235847709.jpg" alt="Marry Me Roses" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Marry+Me+Roses'">
+                <div class="caption-overlay">Marry Me? 🌹</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/20231015_005250_1.jpg', 'The moment you said Yes! 💍')">
+                <img src="images/20231015_005250_1.jpg" alt="The Proposal" style="object-position: center 20%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=The+Proposal'">
+                <div class="caption-overlay">She Said Yes 💍</div>
+            </div>
