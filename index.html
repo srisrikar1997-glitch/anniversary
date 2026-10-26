@@ -5,21 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Happy Anniversary, Ramani ❤️</title>
 
+    <!-- 6. WhatsApp / Social Link Preview Meta Tags -->
+    <meta name="description" content="Kiss the wax seal to open your anniversary letter. Here is to renewing our subscription for the rest of our lives. ♥">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://srisrikar1997-glitch.github.io/anniversary/">
+    <meta property="og:title" content="For My Ramani ❤️ — Happy Anniversary">
+    <meta property="og:description" content="Kiss the seal to open your letter. Together since 21 Aug 2023 • Engaged 27 Oct • Forever to go.">
+    <meta property="og:image" content="https://srisrikar1997-glitch.github.io/anniversary/images/20231231_111316800_iOS.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="For My Ramani ❤️ — Happy Anniversary">
+    <meta name="twitter:description" content="Kiss the seal to open your letter. Renewing our subscription for life.">
+    <meta name="twitter:image" content="https://srisrikar1997-glitch.github.io/anniversary/images/20231231_111316800_iOS.jpg">
+
+    <!-- Google Fonts: Dancing Script (darker/bolder body) + Passions Conflict (titles) + Cormorant Garamond -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Dancing+Script:wght@600;700&family=Passions+Conflict&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --wine: #3a0b19;
             --wine-deep: #240510;
-            --rose: #b83b5e;
+            --rose: #a8284c;
             --rose-soft: #e8a5b5;
             --blush: #fbeaec;
             --ivory: #ffffff;
             --gold: #b8924a;
-            --ink: #2a1b22;
-            --script: 'Passions Conflict', cursive;
+            --ink: #1e0b13; /* Darker, richer ink for maximum legibility */
+            --display-script: 'Passions Conflict', 'Dancing Script', cursive;
+            --body-script: 'Dancing Script', 'Passions Conflict', cursive;
             --serif: 'Cormorant Garamond', Georgia, serif;
         }
 
@@ -33,7 +49,10 @@
             overflow-x: hidden;
             font-family: var(--serif);
             color: var(--ink);
-            background: #ffffff;
+            background:
+                radial-gradient(1200px 600px at 50% -10%, #fff 0%, transparent 60%),
+                linear-gradient(180deg, var(--blush) 0%, #f6dce1 100%);
+            background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -92,6 +111,62 @@
             50%      { transform: rotate(-4deg) scale(1); }
         }
 
+        /* ---------- 2. Floating Music Toggle Button ---------- */
+        #music-toggle {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1800;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border-radius: 999px;
+            border: 1px solid rgba(184, 146, 74, 0.45);
+            background: rgba(255, 250, 244, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--wine);
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(58, 11, 25, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #music-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(58, 11, 25, 0.22);
+        }
+        #music-toggle.visible {
+            display: inline-flex;
+        }
+        #music-toggle .music-bars {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 13px;
+        }
+        #music-toggle .music-bars span {
+            width: 2.5px;
+            background: var(--rose);
+            border-radius: 2px;
+            animation: eqBar 0.9s ease-in-out infinite alternate;
+        }
+        #music-toggle .music-bars span:nth-child(1) { height: 6px; animation-delay: 0s; }
+        #music-toggle .music-bars span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
+        #music-toggle .music-bars span:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+        #music-toggle.muted .music-bars span {
+            animation: none;
+            height: 3px;
+            background: #999;
+        }
+        @keyframes eqBar {
+            0%   { height: 4px; }
+            100% { height: 13px; }
+        }
+
         /* ---------- Screen 1: sealed envelope ---------- */
         #envelope-screen {
             position: fixed;
@@ -112,8 +187,8 @@
             z-index: 2;
             margin: 0;
             text-align: center;
-            font-family: var(--script);
-            font-size: clamp(2.6rem, 8vw, 3.8rem);
+            font-family: var(--display-script);
+            font-size: clamp(2.5rem, 8vw, 3.6rem);
             line-height: 1.1;
             color: #f6d9df;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
@@ -140,6 +215,7 @@
             background: linear-gradient(180deg, #d79aab, #c48093);
         }
 
+        /* the letter inside the envelope */
         .env-letter {
             position: absolute;
             left: 6%;
@@ -158,13 +234,14 @@
             transition: transform 1.1s cubic-bezier(.3, .7, .2, 1);
         }
         .env-letter .l-title {
-            font-family: var(--script);
-            font-size: clamp(2.8rem, 9.5vw, 3.8rem);
+            font-family: var(--display-script);
+            font-size: clamp(2.5rem, 8.5vw, 3.6rem);
             line-height: 1;
             color: var(--rose);
         }
         .env-letter svg { width: 18px; height: 18px; fill: var(--gold); }
 
+        /* front pocket */
         .env-front {
             position: absolute;
             inset: 0;
@@ -181,12 +258,13 @@
             left: 0; right: 0;
             bottom: 5%;
             text-align: center;
-            font-family: var(--script);
-            font-size: clamp(2.2rem, 7vw, 2.8rem);
+            font-family: var(--display-script);
+            font-size: clamp(2.1rem, 6.8vw, 2.7rem);
             line-height: 1;
             color: var(--wine);
         }
 
+        /* flap */
         .env-flap {
             position: absolute;
             left: 0; top: 0;
@@ -214,6 +292,33 @@
         }
         #envelope-screen.rise .env-letter { transform: translateY(-60%); }
 
+        /* ---------- 3. Vintage Circular Postmark Stamp ---------- */
+        .postmark {
+            position: absolute;
+            right: 8%;
+            top: 16%;
+            width: clamp(115px, 32vw, 150px);
+            height: clamp(80px, 22vw, 105px);
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(1.45) rotate(-14deg);
+            mix-blend-mode: multiply;
+        }
+        #envelope-screen.thud .postmark {
+            animation: postmarkStamp 0.42s cubic-bezier(.18, .89, .32, 1.28) forwards;
+        }
+        #envelope-screen.open .postmark {
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        @keyframes postmarkStamp {
+            0%   { opacity: 0; transform: scale(1.5) rotate(-18deg); }
+            60%  { opacity: 0.82; transform: scale(0.94) rotate(-12deg); }
+            100% { opacity: 0.72; transform: scale(1) rotate(-12deg); }
+        }
+
+        /* heart-shaped wax seal */
         .seal-pos {
             position: absolute;
             left: 50%;
@@ -261,8 +366,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: var(--script);
-            font-size: clamp(1.6rem, 5.2vw, 2.2rem);
+            font-family: var(--display-script);
+            font-size: clamp(1.55rem, 5vw, 2.1rem);
             line-height: 0.8;
             color: #2a0a12;
             text-shadow: 0 0 1px rgba(42, 10, 18, 0.7);
@@ -272,12 +377,30 @@
         }
         .seal:focus-visible { outline: 3px solid var(--rose-soft); outline-offset: 8px; border-radius: 12px; }
 
+        /* 3. Stamp press-down thud bounce before breaking */
+        #envelope-screen.thud .seal {
+            animation: sealThud 0.45s cubic-bezier(.25, 1.4, .5, 1) forwards;
+        }
+        #envelope-screen.thud .envelope {
+            animation: envThud 0.35s ease-out;
+        }
+        @keyframes sealThud {
+            0%   { transform: rotate(-4deg) scale(1); }
+            40%  { transform: rotate(-6deg) scale(0.84) translateY(4px); filter: brightness(0.92); }
+            75%  { transform: rotate(-3deg) scale(1.06) translateY(-2px); }
+            100% { transform: rotate(-4deg) scale(0.98); }
+        }
+        @keyframes envThud {
+            0%, 100% { transform: scale(1); }
+            40%      { transform: scale(0.982) translateY(3px); }
+        }
+
         #envelope-screen.breaking .seal { animation: sealPop 0.65s ease-in forwards; }
         #envelope-screen.breaking .seal-pos::before { animation: none; opacity: 0; }
         #envelope-screen.breaking .instruction { opacity: 0; }
 
         @keyframes sealPop {
-            0%   { transform: rotate(-4deg) scale(1); opacity: 1; }
+            0%   { transform: rotate(-4deg) scale(0.98); opacity: 1; }
             35%  { transform: rotate(-8deg) scale(1.2); opacity: 1; }
             100% { transform: rotate(8deg) scale(0.35); opacity: 0; }
         }
@@ -291,7 +414,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 760px;
+            max-width: 780px;
             margin: 0 auto;
             padding: 56px 20px 90px;
             transition: opacity 1.6s ease;
@@ -300,18 +423,19 @@
         .letter-content {
             position: relative;
             width: 100%;
-            padding: 64px 44px 56px;
+            padding: 64px 48px 60px;
             background: var(--ivory);
             border-radius: 4px;
             box-shadow:
-                0 2px 4px rgba(90, 20, 40, 0.04),
-                0 24px 60px -12px rgba(90, 20, 40, 0.15);
+                0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                0 2px 4px rgba(90, 20, 40, 0.06),
+                0 24px 60px -12px rgba(90, 20, 40, 0.25);
         }
         .letter-content::before {
             content: "";
             position: absolute;
             inset: 14px;
-            border: 1px solid rgba(184, 146, 74, 0.35);
+            border: 1px solid rgba(184, 146, 74, 0.55);
             border-radius: 2px;
             pointer-events: none;
         }
@@ -319,7 +443,7 @@
             content: "";
             position: absolute;
             inset: 19px;
-            border: 1px solid rgba(184, 146, 74, 0.15);
+            border: 1px solid rgba(184, 146, 74, 0.22);
             border-radius: 1px;
             pointer-events: none;
         }
@@ -327,11 +451,37 @@
         h1 {
             margin: 0;
             text-align: center;
-            font-family: var(--script);
+            font-family: var(--display-script);
             font-weight: 400;
-            font-size: clamp(4.2rem, 14vw, 6.2rem);
+            font-size: clamp(3.8rem, 12.5vw, 5.8rem);
             line-height: 0.95;
             color: var(--rose);
+        }
+
+        /* ---------- 5. Together Counter ---------- */
+        .together-box {
+            text-align: center;
+            margin: 16px auto 6px;
+            font-family: var(--serif);
+        }
+        .together-main {
+            font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+            font-weight: 600;
+            font-style: italic;
+            color: var(--wine);
+            letter-spacing: 0.02em;
+        }
+        .together-milestones {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            background: rgba(184, 59, 94, 0.07);
+            border: 1px solid rgba(184, 146, 74, 0.35);
+            font-size: clamp(0.85rem, 2.5vw, 0.98rem);
+            font-weight: 500;
+            color: #5a2236;
+            letter-spacing: 0.04em;
         }
 
         .ornament {
@@ -339,7 +489,7 @@
             align-items: center;
             justify-content: center;
             gap: 14px;
-            margin: 22px auto 40px;
+            margin: 18px auto 38px;
             max-width: 280px;
             color: var(--gold);
         }
@@ -353,37 +503,133 @@
         .ornament::after { transform: scaleX(-1); }
         .ornament svg { width: 18px; height: 18px; fill: currentColor; flex: none; animation: heartbeat 2.2s ease-in-out infinite; }
 
+        /* Larger, darker, richer cursive for the letter paragraphs */
         .letter-body {
-            font-family: var(--script);
-            font-size: clamp(2.1rem, 5.8vw, 2.7rem);
-            line-height: 1.5;
+            font-family: var(--body-script);
+            font-weight: 600;
+            font-size: clamp(1.5rem, 4.3vw, 1.9rem);
+            line-height: 1.72;
             color: var(--ink);
-            padding: 0 4px;
+            padding: 0 6px;
         }
-        .letter-body p { margin: 0 0 0.85em; }
-        .letter-body p:first-child::first-letter {
-            font-size: 1.6em;
+        .letter-body p {
+            margin: 0 0 1.15em;
+        }
+        .letter-body p:first-of-type::first-letter {
+            font-family: var(--display-script);
+            font-size: 2.3em;
+            font-weight: 400;
             line-height: 0;
             color: var(--rose);
-            padding-right: 4px;
+            padding-right: 6px;
         }
 
         .finale {
             text-align: center;
             color: var(--rose);
-            font-size: 1.15em;
-            line-height: 1.25;
-            margin-top: 1.2em;
+            font-size: 1.25em;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-top: 1.3em;
         }
 
         .signature {
             margin-top: 0.8em;
             text-align: right;
             color: var(--rose);
-            font-size: 1.15em;
+            font-size: 1.2em;
             line-height: 1.1;
         }
-        .signature .name { display: block; font-size: 1.45em; margin-top: 4px; }
+        .signature .name {
+            display: block;
+            font-family: var(--display-script);
+            font-weight: 400;
+            font-size: 2.1em;
+            margin-top: 4px;
+            color: var(--wine);
+        }
+
+        /* ---------- 1. "Renew Subscription" Interactive Section ---------- */
+        .renew-wrap {
+            margin-top: 42px;
+            padding-top: 28px;
+            border-top: 1px dashed rgba(184, 146, 74, 0.45);
+            text-align: center;
+            font-family: var(--serif);
+        }
+        .renew-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 34px;
+            border-radius: 999px;
+            border: 1.5px solid var(--gold);
+            background: linear-gradient(135deg, var(--wine) 0%, var(--rose) 100%);
+            color: #fffaf4;
+            font-family: var(--body-script);
+            font-size: clamp(1.45rem, 4.2vw, 1.75rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            box-shadow:
+                0 10px 26px -6px rgba(168, 40, 76, 0.55),
+                0 0 0 4px rgba(184, 146, 74, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .renew-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow:
+                0 16px 32px -6px rgba(168, 40, 76, 0.65),
+                0 0 0 6px rgba(184, 146, 74, 0.25);
+        }
+        .renew-btn:active {
+            transform: scale(0.96);
+        }
+        .renew-status {
+            display: none;
+            margin-top: 18px;
+            padding: 20px 24px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #fffdf9 0%, #fdf2f5 100%);
+            border: 1px solid rgba(184, 146, 74, 0.55);
+            box-shadow: 0 12px 30px -10px rgba(58, 11, 25, 0.18);
+            animation: popIn 0.6s cubic-bezier(.2, .85, .3, 1.15) forwards;
+        }
+        .renew-status.active {
+            display: block;
+        }
+        .renew-status-title {
+            font-family: var(--body-script);
+            font-size: clamp(1.65rem, 5vw, 2.15rem);
+            font-weight: 700;
+            color: var(--rose);
+            line-height: 1.25;
+        }
+        .renew-status-sub {
+            margin-top: 6px;
+            font-family: var(--serif);
+            font-size: 0.98rem;
+            font-style: italic;
+            color: #5a2236;
+        }
+        @keyframes popIn {
+            0%   { opacity: 0; transform: translateY(12px) scale(0.94); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ---------- 4. Subtle Scroll Fade-In ---------- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.85s cubic-bezier(.2, .65, .2, 1), transform 0.85s cubic-bezier(.2, .65, .2, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* ---------- Photos woven into the letter ---------- */
         .moment {
@@ -391,7 +637,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 34px 26px;
-            margin: 1.3rem auto 2.4rem;
+            margin: 1.6rem auto 2.5rem;
             font-size: 1rem;
         }
 
@@ -407,6 +653,7 @@
             transform: rotate(var(--tilt, 0deg));
             transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease;
             -webkit-tap-highlight-color: transparent;
+            width: 100%;
         }
         .gallery-item:hover,
         .gallery-item:focus-visible {
@@ -431,7 +678,9 @@
             z-index: 2;
         }
 
-        .moment .gallery-item { flex: 1 1 230px; max-width: 290px; }
+        .moment .gallery-item { flex: 1 1 240px; max-width: 300px; }
+        .moment.left .gallery-item,
+        .moment.right .gallery-item { max-width: 330px; }
         .moment.left  .gallery-item { --tilt: -1.8deg; }
         .moment.right .gallery-item { --tilt: 1.6deg; }
         .moment.pair .gallery-item:nth-child(1) { --tilt: -2deg; }
@@ -441,7 +690,7 @@
             width: 100%;
             aspect-ratio: 4 / 5;
             overflow: hidden;
-            background: #f7d6dd;
+            background: linear-gradient(135deg, #f7d6dd, #f1b7c4);
             position: relative;
         }
         .photo img {
@@ -456,14 +705,17 @@
         .caption-overlay {
             padding: 8px 4px 14px;
             text-align: center;
-            font-family: var(--script);
-            font-size: 2.3rem;
-            line-height: 1.15;
+            font-family: var(--display-script);
+            font-size: clamp(2.15rem, 5.5vw, 2.5rem);
+            line-height: 1.1;
             color: var(--wine);
         }
 
         @media (max-width: 560px) {
-            .letter-content { padding: 52px 26px 44px; }
+            .letter-content { padding: 48px 22px 44px; }
+            .moment .gallery-item,
+            .moment.left .gallery-item,
+            .moment.right .gallery-item { max-width: 310px; }
             .moment.pair .gallery-item:nth-child(2) { margin-top: 0; }
         }
 
@@ -494,8 +746,8 @@
             margin-top: 22px;
             max-width: 88%;
             text-align: center;
-            font-family: var(--script);
-            font-size: clamp(2.1rem, 6.5vw, 2.9rem);
+            font-family: var(--display-script);
+            font-size: clamp(2.2rem, 6.5vw, 3rem);
             line-height: 1.2;
             color: #f6d9df;
         }
@@ -514,12 +766,23 @@
             .seal, .ornament svg, .seal-pos::before { animation: none; }
             .heart { display: none; }
             .gallery-item, .photo img, .env-flap, .env-letter { transition-duration: 0.01s; }
+            .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
         }
     </style>
 </head>
 <body>
 
     <div id="hearts-layer" aria-hidden="true"></div>
+
+    <!-- 2. Background Audio + Floating Mute Toggle -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="images/music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle" type="button" aria-label="Toggle background music">
+        <span class="music-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span id="music-label">Music On</span>
+    </button>
 
     <!-- SCREEN 1: sealed envelope -->
     <div id="envelope-screen">
@@ -547,9 +810,31 @@
                     <div class="flap-face flap-back"></div>
                 </div>
 
+                <!-- 3. Postmark SVG that stamps onto the envelope on tap -->
+                <svg class="postmark" viewBox="0 0 220 140" aria-hidden="true">
+                    <defs>
+                        <path id="pm-top" d="M 18,70 A 48,48 0 1,1 114,70" />
+                        <path id="pm-bot" d="M 114,70 A 48,48 0 1,1 18,70" />
+                    </defs>
+                    <circle cx="66" cy="70" r="56" fill="none" stroke="#4a1222" stroke-width="2.2" stroke-dasharray="10 3 4 2" />
+                    <circle cx="66" cy="70" r="40" fill="none" stroke="#4a1222" stroke-width="1.4" />
+                    <text fill="#4a1222" font-family="Georgia, serif" font-size="8.5" font-weight="bold" letter-spacing="1.4">
+                        <textPath href="#pm-top" startOffset="50%" text-anchor="middle">21 AUG 2023 • 27 OCT</textPath>
+                    </text>
+                    <text fill="#4a1222" font-family="Georgia, serif" font-size="8.5" font-weight="bold" letter-spacing="1.6">
+                        <textPath href="#pm-bot" startOffset="50%" text-anchor="middle">FOREVER &amp; ALWAYS</textPath>
+                    </text>
+                    <text x="66" y="68" text-anchor="middle" fill="#4a1222" font-family="Georgia, serif" font-size="13" font-weight="bold">S ♥ R</text>
+                    <text x="66" y="82" text-anchor="middle" fill="#4a1222" font-family="Georgia, serif" font-size="8" letter-spacing="1">APPROVED</text>
+                    <path d="M 126,52 Q 145,46 164,52 T 202,52" fill="none" stroke="#4a1222" stroke-width="2" />
+                    <path d="M 126,66 Q 145,60 164,66 T 202,66" fill="none" stroke="#4a1222" stroke-width="2" />
+                    <path d="M 126,80 Q 145,74 164,80 T 202,80" fill="none" stroke="#4a1222" stroke-width="2" />
+                    <path d="M 126,94 Q 145,88 164,94 T 202,94" fill="none" stroke="#4a1222" stroke-width="2" />
+                </svg>
+
                 <div class="seal-pos">
                     <div class="seal" id="seal" role="button" tabindex="0" aria-label="Kiss the seal to open the letter">
-                        <img class="stamp-img" src="images/stamp-seal.png" alt="" draggable="false">
+                        <img class="stamp-img" src="images/stamp-seal.png" data-fallbacks="stamp-seal.png,images/stamp-seal.PNG" alt="" draggable="false">
                         <span class="seal-names"><span>Srikar</span><span>Ramani</span></span>
                     </div>
                 </div>
@@ -561,104 +846,175 @@
     <div id="letter-screen">
         <div class="letter-content">
             <h1>Happy Anniversary, Ramani</h1>
+
+            <!-- 5. Dynamic Together Counter -->
+            <div class="together-box">
+                <div class="together-main" id="together-counter">Together for 3 years, 67 days…</div>
+                <div class="together-milestones">Met 21 Aug 2023 &nbsp;•&nbsp; Engaged 27 Oct</div>
+            </div>
+
             <div class="ornament" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M12 21.2 3.9 13.4C1.2 10.8 1.3 6.7 4 4.6c2.3-1.8 5.4-1.1 7 1.1l1 1.3 1-1.3c1.6-2.2 4.7-2.9 7-1.1 2.7 2.1 2.8 6.2.1 8.8L12 21.2z"/></svg>
             </div>
 
             <div class="letter-body">
-                <p>The best moments of my life got unlocked with your subscription.</p>
-                <p>It all got started with that candlelit date we had, and since then, life has taken us through mountains and valleys, beaches and oceans. We have seen our share of ups and downs, and through all of it, we have built moments worth savoring to remember the very best of us.</p>
+                <p class="reveal-on-scroll">The best moments of my life got unlocked with your subscription.</p>
+                <p class="reveal-on-scroll">It all got started with that candlelit date we had, and since then, life has taken us through mountains and valleys, beaches and oceans. We have seen our share of ups and downs, and through all of it, we have built moments worth savoring to remember the very best of us.</p>
 
-                <div class="moment left">
+                <div class="moment left reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20231005_231701443(1).jpg" alt="Candlelit dinner date" loading="lazy" decoding="async" style="object-position: 48% center;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/PXL_20231005_231701443.jpg"
+                                 data-fallbacks="images/PXL_20231005_231701443_1_.jpg,images/20231005_231701443.jpg,images/20231005_231701443_1_.jpg,images/PXL_20231005_231701443(1).jpg,images/PXL_20231005_231701443.JPG"
+                                 alt="Candlelit dinner date" loading="lazy" decoding="async" style="object-position: 48% center;">
+                        </div>
                         <figcaption class="caption-overlay">Where it all began</figcaption>
                     </figure>
                 </div>
 
-                <div class="moment pair">
+                <div class="moment pair reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/IMG_1810.JPG" alt="Turquoise pool in a canyon" loading="lazy" decoding="async" style="object-position: 70% center;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/IMG_1810.jpg"
+                                 data-fallbacks="images/IMG_1810.JPG,IMG_1810.jpg,IMG_1810.JPG"
+                                 alt="Turquoise pool in a canyon" loading="lazy" decoding="async" style="object-position: 70% center;">
+                        </div>
                         <figcaption class="caption-overlay">Valleys &amp; still waters</figcaption>
                     </figure>
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/IMG_8078.JPG" alt="Hilltop over the sea" loading="lazy" decoding="async" style="object-position: 60% center;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/IMG_8078.jpg"
+                                 data-fallbacks="images/IMG_8078.JPG,IMG_8078.jpg,IMG_8078.JPG"
+                                 alt="Hilltop over the sea" loading="lazy" decoding="async" style="object-position: 60% center;">
+                        </div>
                         <figcaption class="caption-overlay">Horizons with you</figcaption>
                     </figure>
                 </div>
 
-                <p>For the longest time, I haven't known how to put my feelings into words. Whenever you ask me why I love you, my mind goes blank and I end up staying quiet. I always thought what I felt for you was just blind love—something I felt deeply but couldn't explain. Because I could never find the right words, I never properly took the opportunity to tell you why I love you so much.</p>
+                <p class="reveal-on-scroll">For the longest time, I haven't known how to put my feelings into words. Whenever you ask me why I love you, my mind goes blank and I end up staying quiet. I always thought what I felt for you was just blind love—something I felt deeply but couldn't explain. Because I could never find the right words, I never properly took the opportunity to tell you why I love you so much.</p>
 
-                <div class="moment pair">
+                <div class="moment pair reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/PXL_20231014_235847709.jpg" alt="Marry me, spelled in roses and candles" loading="lazy" decoding="async" style="object-position: center center;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/PXL_20231014_235847709.jpg"
+                                 data-fallbacks="images/PXL_20231014_235847709.JPG,PXL_20231014_235847709.jpg"
+                                 alt="Marry me, spelled in roses and candles" loading="lazy" decoding="async" style="object-position: center center;">
+                        </div>
                         <figcaption class="caption-overlay">I asked with roses</figcaption>
                     </figure>
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20231015_005250_1.jpg" alt="The proposal" loading="lazy" decoding="async" style="object-position: center 40%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/20231015_005250.jpg"
+                                 data-fallbacks="images/20231015_005250_1.jpg,images/20231015_005250.JPG,images/20231015_005250_1.JPG,20231015_005250_1.jpg"
+                                 alt="The proposal" loading="lazy" decoding="async" style="object-position: center 40%;">
+                        </div>
                         <figcaption class="caption-overlay">You said yes</figcaption>
                     </figure>
                 </div>
 
-                <p>I also know that you are a deeply romantic person who loves surprises, and you ended up with a guy who isn't naturally good at grand gestures. Yet, you stayed patient with me. When I actually sit down and look at our life together, my love for you isn't blind at all. I have so many reasons why it has always been you.</p>
+                <p class="reveal-on-scroll">I also know that you are a deeply romantic person who loves surprises, and you ended up with a guy who isn't naturally good at grand gestures. Yet, you stayed patient with me. When I actually sit down and look at our life together, my love for you isn't blind at all. I have so many reasons why it has always been you.</p>
 
-                <div class="moment right">
+                <div class="moment right reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20231008_195418(1).jpg" alt="Ramani smiling in a yellow saree" loading="lazy" decoding="async" style="object-position: center 30%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/20231008_195418.jpg"
+                                 data-fallbacks="images/20231008_195418_1_.jpg,images/20231008_195418(1).jpg,images/20231008_195418.JPG,images/20231008_195418_1_.JPG,20231008_195418.jpg"
+                                 alt="Ramani smiling in a yellow saree" loading="lazy" decoding="async" style="object-position: center 30%;">
+                        </div>
                         <figcaption class="caption-overlay">That smile</figcaption>
                     </figure>
                 </div>
 
-                <p>I love you for the warmth you bring into my quiet world. I love the feeling I get when you let your guard down and behave cute with me. I love when you surprise me by cooking a special dish just to make me happy. I might not do big, flashy surprises, but taking you out after a long, exhausting day is my favorite way to unwind—because being around you doesn't drain my energy, it brings me back to life. And at the end of every day, simply getting to hug you and fall asleep is the only place I feel completely at peace.</p>
+                <p class="reveal-on-scroll">I love you for the warmth you bring into my quiet world. I love the feeling I get when you let your guard down and behave cute with me. I love when you surprise me by cooking a special dish just to make me happy. I might not do big, flashy surprises, but taking you out after a long, exhausting day is my favorite way to unwind—because being around you doesn't drain my energy, it brings me back to life. And at the end of every day, simply getting to hug you and fall asleep is the only place I feel completely at peace.</p>
 
-                <div class="moment pair">
+                <div class="moment pair reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/IMG_1709.JPG" alt="City lights from a hilltop at night" loading="lazy" decoding="async" style="object-position: center 75%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/IMG_1709.jpg"
+                                 data-fallbacks="images/IMG_1709.JPG,IMG_1709.jpg,IMG_1709.JPG"
+                                 alt="City lights from a hilltop at night" loading="lazy" decoding="async" style="object-position: center 75%;">
+                        </div>
                         <figcaption class="caption-overlay">City lights, just us</figcaption>
                     </figure>
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/IMG_2134.JPG" alt="Stargazing together" loading="lazy" decoding="async" style="object-position: center bottom;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/IMG_2134.jpg"
+                                 data-fallbacks="images/IMG_2134.JPG,IMG_2134.jpg,IMG_2134.JPG"
+                                 alt="Stargazing together" loading="lazy" decoding="async" style="object-position: center bottom;">
+                        </div>
                         <figcaption class="caption-overlay">Under our stars</figcaption>
                     </figure>
                 </div>
 
-                <p>I love you for how much you have grown with me. We used to fight a lot, and things used to get heated so quickly. Now, I see how much effort you put into calming down and explaining things to me gently instead of fighting. Watching you soften your anger just so we can understand each other makes me respect you more than I usually say out loud, and it makes me never, ever want to hurt you.</p>
+                <p class="reveal-on-scroll">I love you for how much you have grown with me. We used to fight a lot, and things used to get heated so quickly. Now, I see how much effort you put into calming down and explaining things to me gently instead of fighting. Watching you soften your anger just so we can understand each other makes me respect you more than I usually say out loud, and it makes me never, ever want to hurt you.</p>
 
-                <div class="moment left">
+                <div class="moment left reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/H41A3888.JPG" alt="Together in traditional wear" loading="lazy" decoding="async" style="object-position: center 25%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/H41A3888.jpg"
+                                 data-fallbacks="images/H41A3888.JPG,H41A3888.jpg,H41A3888.JPG"
+                                 alt="Together in traditional wear" loading="lazy" decoding="async" style="object-position: center 25%;">
+                        </div>
                         <figcaption class="caption-overlay">Grown together</figcaption>
                     </figure>
                 </div>
 
-                <p>Most of all, I love you because you are 100% on my team. In every situation, you make me feel like your first priority. I love the way you stand up for me and look out for my happiness. Knowing that you always have my back makes me feel cared for in a way nobody else ever has.</p>
+                <p class="reveal-on-scroll">Most of all, I love you because you are 100% on my team. In every situation, you make me feel like your first priority. I love the way you stand up for me and look out for my happiness. Knowing that you always have my back makes me feel cared for in a way nobody else ever has.</p>
 
-                <div class="moment pair">
+                <div class="moment pair reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/IMG_0395.JPG" alt="Festive evening with diya lights" loading="lazy" decoding="async" style="object-position: center 30%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/IMG_0395.jpg"
+                                 data-fallbacks="images/IMG_0395.JPG,IMG_0395.jpg,IMG_0395.JPG"
+                                 alt="Festive evening with diya lights" loading="lazy" decoding="async" style="object-position: center 30%;">
+                        </div>
                         <figcaption class="caption-overlay">Lighting up our home</figcaption>
                     </figure>
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20260127_000032.jpg" alt="A kiss on the cheek under roses and balloons" loading="lazy" decoding="async" style="object-position: center 45%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/20260127_000032.jpg"
+                                 data-fallbacks="images/20260127_000032.JPG,20260127_000032.jpg"
+                                 alt="A kiss on the cheek under roses and balloons" loading="lazy" decoding="async" style="object-position: center 45%;">
+                        </div>
                         <figcaption class="caption-overlay">Still falling for you</figcaption>
                     </figure>
                 </div>
 
-                <p>I miss you the second you aren't around because you are my comfort, my peace, and my home. I may not always be the most emotional or expressive guy in the room, but every single day, I am grateful that my life is tied to yours.</p>
+                <p class="reveal-on-scroll">I miss you the second you aren't around because you are my comfort, my peace, and my home. I may not always be the most emotional or expressive guy in the room, but every single day, I am grateful that my life is tied to yours.</p>
 
-                <div class="moment pair">
+                <div class="moment pair reveal-on-scroll">
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20231230_121351516_iOS.jpg" alt="Hugging at sunset in the desert" loading="lazy" decoding="async" style="object-position: center 45%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/20231230_121351516_iOS.jpg"
+                                 data-fallbacks="images/20231230_121351516_iOS.JPG,20231230_121351516_iOS.jpg"
+                                 alt="Hugging at sunset in the desert" loading="lazy" decoding="async" style="object-position: center 45%;">
+                        </div>
                         <figcaption class="caption-overlay">Home is in your arms</figcaption>
                     </figure>
                     <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
-                        <div class="photo"><img src="images/20231231_111316800_iOS.jpg" alt="In front of a golden haveli" loading="lazy" decoding="async" style="object-position: center 40%;" onerror="this.style.display='none'"></div>
+                        <div class="photo">
+                            <img src="images/20231231_111316800_iOS.jpg"
+                                 data-fallbacks="images/20231231_111316800_iOS.JPG,20231231_111316800_iOS.jpg"
+                                 alt="In front of a golden haveli" loading="lazy" decoding="async" style="object-position: center 40%;">
+                        </div>
                         <figcaption class="caption-overlay">Royal vibes</figcaption>
                     </figure>
                 </div>
 
-                <p class="finale">Happy Anniversary, Ramani. Here is to renewing this subscription for the rest of our lives.</p>
-                <div class="signature">Forever yours,<span class="name">Srikar</span></div>
+                <p class="finale reveal-on-scroll">Happy Anniversary, Ramani. Here is to renewing this subscription for the rest of our lives.</p>
+                <div class="signature reveal-on-scroll">Forever yours,<span class="name">Srikar</span></div>
+
+                <!-- 1. Renew Subscription for Life Button & Status -->
+                <div class="renew-wrap reveal-on-scroll">
+                    <button type="button" class="renew-btn" id="renew-btn">
+                        <span>Renew for life</span>
+                        <span aria-hidden="true">♥</span>
+                    </button>
+                    <div class="renew-status" id="renew-status" role="status" aria-live="polite">
+                        <div class="renew-status-title">Subscription renewed ♥ Srikar &amp; Ramani, forever</div>
+                        <div class="renew-status-sub">Plan: Lifetime Unlimited Love &nbsp;•&nbsp; Valid through Eternity</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -673,6 +1029,35 @@
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const HEART_COLORS = ['#b83b5e', '#d4607f', '#e8a5b5', '#c9455f', '#f2b8c6'];
+
+        // Smart automatic filename fallback resolver (handles .jpg vs .JPG, _1_, (1), etc.)
+        document.querySelectorAll('img[data-fallbacks]').forEach(function (img) {
+            const list = img.getAttribute('data-fallbacks').split(',').map(s => s.trim()).filter(Boolean);
+            let idx = 0;
+            img.addEventListener('error', function () {
+                if (idx < list.length) {
+                    img.src = list[idx++];
+                }
+            });
+        });
+
+        // 5. Calculate Together Counter dynamically from 21 Aug 2023
+        function updateTogetherCounter() {
+            const start = new Date(2023, 7, 21); // Aug 21, 2023 (month is 0-indexed)
+            const now = new Date();
+            let years = now.getFullYear() - start.getFullYear();
+            let annivThisYear = new Date(now.getFullYear(), 7, 21);
+            if (now < annivThisYear) {
+                years--;
+                annivThisYear = new Date(now.getFullYear() - 1, 7, 21);
+            }
+            const diffDays = Math.max(0, Math.floor((now - annivThisYear) / (1000 * 60 * 60 * 24)));
+            const el = document.getElementById('together-counter');
+            if (el) {
+                el.textContent = 'Together for ' + years + (years === 1 ? ' year, ' : ' years, ') + diffDays + (diffDays === 1 ? ' day…' : ' days…');
+            }
+        }
+        updateTogetherCounter();
 
         function heartSVG(color) {
             return '<svg viewBox="0 0 24 24" fill="' + color + '"><path d="M12 21.2 3.9 13.4C1.2 10.8 1.3 6.7 4 4.6c2.3-1.8 5.4-1.1 7 1.1l1 1.3 1-1.3c1.6-2.2 4.7-2.9 7-1.1 2.7 2.1 2.8 6.2.1 8.8L12 21.2z"/></svg>';
@@ -703,20 +1088,20 @@
             return setInterval(() => spawnRisingHeart(container, light), interval);
         }
 
-        function burstHearts(x, y) {
+        function burstHearts(x, y, count) {
             if (reduceMotion) return;
-            const n = 28;
+            const n = count || 28;
             for (let i = 0; i < n; i++) {
                 const el = document.createElement('div');
-                const size = 14 + Math.random() * 20;
+                const size = 14 + Math.random() * 22;
                 el.style.cssText = 'position:fixed;z-index:1500;pointer-events:none;width:' + size + 'px;height:' + size + 'px;left:' + (x - size / 2) + 'px;top:' + (y - size / 2) + 'px;';
                 el.innerHTML = heartSVG(HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]);
                 document.body.appendChild(el);
 
                 const angle = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.4;
-                const dist = 110 + Math.random() * 190;
+                const dist = 110 + Math.random() * 220;
                 const dx = Math.cos(angle) * dist;
-                const dy = Math.sin(angle) * dist - 70;
+                const dy = Math.sin(angle) * dist - 80;
                 const rot = (Math.random() - 0.5) * 140;
 
                 el.animate([
@@ -726,6 +1111,86 @@
                 ], { duration: 1500 + Math.random() * 700, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' })
                   .onfinish = () => el.remove();
             }
+        }
+
+        // 3. Subtle tactile postmark "thud" sound via Web Audio API
+        function playPostmarkThud() {
+            try {
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                if (!Ctx) return;
+                const ctx = new Ctx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(115, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(38, ctx.currentTime + 0.14);
+                gain.gain.setValueAtTime(0.28, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.17);
+            } catch (err) {}
+        }
+
+        // 2. Background Music Controller
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicLabel = document.getElementById('music-label');
+
+        function startBackgroundMusic() {
+            if (!bgMusic) return;
+            bgMusic.volume = 0.05;
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicToggle.classList.add('visible');
+                    // Gentle volume fade-in
+                    let v = 0.05;
+                    const fade = setInterval(() => {
+                        v = Math.min(0.4, v + 0.04);
+                        bgMusic.volume = v;
+                        if (v >= 0.4) clearInterval(fade);
+                    }, 180);
+                }).catch(() => {
+                    // If music.mp3 isn't uploaded or autoplay blocked, still show button if source exists
+                });
+            }
+        }
+
+        musicToggle.addEventListener('click', function () {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    musicToggle.classList.remove('muted');
+                    musicLabel.textContent = 'Music On';
+                }).catch(() => {});
+            } else {
+                bgMusic.pause();
+                musicToggle.classList.add('muted');
+                musicLabel.textContent = 'Muted';
+            }
+        });
+
+        // 4. Scroll Fade-In Observer
+        function initScrollReveal() {
+            const items = document.querySelectorAll('.reveal-on-scroll');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                items.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+            // Immediately reveal the first paragraph so the top isn't blank
+            if (items[0]) items[0].classList.add('is-visible');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+
+            items.forEach(el => observer.observe(el));
         }
 
         const screenEl = document.getElementById('envelope-screen');
@@ -742,15 +1207,31 @@
             const r = seal.getBoundingClientRect();
             const t = reduceMotion ? 0.25 : 1;
 
-            screenEl.classList.add('breaking');
-            burstHearts(r.left + r.width / 2, r.top + r.height / 2);
+            // Start soft background music on her first tap
+            startBackgroundMusic();
 
-            setTimeout(() => screenEl.classList.add('open'), 450 * t);
-            setTimeout(() => screenEl.classList.add('rise'), 1250 * t);
+            // 1. Stamp presses down with a bounce & postmark appears on envelope
+            playPostmarkThud();
+            screenEl.classList.add('thud');
+
+            // 2. Seal breaks with a burst of hearts after the postmark lands
+            setTimeout(() => {
+                screenEl.classList.add('breaking');
+                burstHearts(r.left + r.width / 2, r.top + r.height / 2, 30);
+            }, 520 * t);
+
+            // 3. Flap opens
+            setTimeout(() => screenEl.classList.add('open'), 950 * t);
+
+            // 4. Letter slides out
+            setTimeout(() => screenEl.classList.add('rise'), 1750 * t);
+
+            // 5. Envelope fades away into the full letter
             setTimeout(() => {
                 screenEl.style.opacity = '0';
                 screenEl.style.transform = 'scale(1.06)';
-            }, 2450 * t);
+            }, 2950 * t);
+
             setTimeout(() => {
                 screenEl.style.display = 'none';
                 if (envTimer) clearInterval(envTimer);
@@ -758,8 +1239,9 @@
                 void letterScreen.offsetWidth;
                 letterScreen.style.opacity = '1';
                 window.scrollTo(0, 0);
+                initScrollReveal();
                 startHearts(document.getElementById('hearts-layer'), 1700, false);
-            }, 3500 * t);
+            }, 4000 * t);
         }
 
         seal.addEventListener('click', handleOpen);
@@ -768,11 +1250,35 @@
             if (e.key === 'Enter' || e.key === ' ') handleOpen(e);
         });
 
+        // 1. "Renew for life" Button Handler
+        const renewBtn = document.getElementById('renew-btn');
+        const renewStatus = document.getElementById('renew-status');
+        if (renewBtn) {
+            renewBtn.addEventListener('click', function () {
+                const rect = renewBtn.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+
+                burstHearts(cx, cy, 38);
+                setTimeout(() => burstHearts(window.innerWidth * 0.3, window.innerHeight * 0.45, 24), 260);
+                setTimeout(() => burstHearts(window.innerWidth * 0.7, window.innerHeight * 0.45, 24), 520);
+
+                const layer = document.getElementById('hearts-layer');
+                for (let i = 0; i < 18; i++) {
+                    setTimeout(() => spawnRisingHeart(layer, false), i * 110);
+                }
+
+                renewBtn.innerHTML = '<span>Subscription Renewed</span> <span aria-hidden="true">♥</span>';
+                renewStatus.classList.add('active');
+            });
+        }
+
+        // Photo viewer
         function openLightbox(figure) {
             const img = figure.querySelector('img');
             const cap = figure.querySelector('figcaption');
             if (!img) return;
-            document.getElementById('lightbox-img').src = img.getAttribute('src');
+            document.getElementById('lightbox-img').src = img.currentSrc || img.getAttribute('src');
             document.getElementById('lightbox-caption').textContent = cap ? cap.textContent : '';
             document.getElementById('lightbox').style.display = 'flex';
         }
