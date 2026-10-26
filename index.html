@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Anniversary, Ramani ❤️</title>
     <style>
-        /* --- General Styles --- */
         * {
             box-sizing: border-box;
         }
@@ -17,9 +16,7 @@
             background-color: #fdfaf6;
             color: #4a4a4a;
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100vw;
             min-height: 100vh;
         }
 
@@ -29,13 +26,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            width: 100%;
             position: fixed;
             top: 0;
             left: 0;
-            background: radial-gradient(circle, #fff9f5 0%, #f7ede2 100%);
-            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fdfaf6;
+            z-index: 99999;
+            opacity: 1;
+            visibility: visible;
             transition: opacity 1.2s ease, transform 1.2s ease;
         }
 
@@ -83,6 +82,7 @@
             align-items: center;
             width: 100%;
             max-width: 720px;
+            margin: 0 auto;
             padding: 40px 20px 60px;
             text-align: center;
             transition: opacity 1.5s ease;
@@ -237,7 +237,7 @@
     <!-- SCREEN 1: The Seal -->
     <div id="envelope-screen">
         <p class="instruction">💋 Kiss (tap) the seal to open your letter</p>
-        <div class="seal" id="seal" onclick="openLetter()">
+        <div class="seal" id="seal">
             S ❤️ R
         </div>
     </div>
@@ -258,7 +258,6 @@
         <!-- Gallery Grid with Original Filenames -->
         <div class="gallery-container">
             
-            <!-- Row 1: Early Date Nights -->
             <div class="gallery-item" onclick="openLightbox('images/PXL_20231005_231701443(1).jpg', 'Our cozy dinner date night ❤️')">
                 <img src="images/PXL_20231005_231701443(1).jpg" alt="Dinner Date" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Dinner+Date'">
                 <div class="caption-overlay">Date Night</div>
@@ -269,7 +268,6 @@
                 <div class="caption-overlay">Golden Glow</div>
             </div>
 
-            <!-- Row 2: The Proposal -->
             <div class="gallery-item" onclick="openLightbox('images/PXL_20231014_235847709.jpg', 'The easiest question I ever asked 🌹')">
                 <img src="images/PXL_20231014_235847709.jpg" alt="Marry Me Roses" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Marry+Me+Roses'">
                 <div class="caption-overlay">Marry Me? 🌹</div>
@@ -279,3 +277,92 @@
                 <img src="images/20231015_005250_1.jpg" alt="The Proposal" style="object-position: center 20%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=The+Proposal'">
                 <div class="caption-overlay">She Said Yes 💍</div>
             </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/20231231_111316800_iOS.jpg', 'Royal vibes together 🏰')">
+                <img src="images/20231231_111316800_iOS.jpg" alt="Palace Portrait" style="object-position: center 35%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Palace+Portrait'">
+                <div class="caption-overlay">Royal Vibes</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/IMG_0395.jpg', 'Lighting up our home and our lives 🪔')">
+                <img src="images/IMG_0395.jpg" alt="Festive Hug" style="object-position: center 25%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Festive+Smiles'">
+                <div class="caption-overlay">Festive Smiles 🪔</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/IMG_1810.jpg', 'Exploring turquoise waters with my favorite travel partner 🌊')">
+                <img src="images/IMG_1810.jpg" alt="Turquoise Canyon" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Canyon+Waters'">
+                <div class="caption-overlay">Wadi Adventures 🌊</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/IMG_1709.jpg', 'City lights and mountain nights 🌃')">
+                <img src="images/IMG_1709.jpg" alt="City Lights Viewpoint" style="object-position: center 65%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Night+Viewpoint'">
+                <div class="caption-overlay">City Lights 🌃</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/IMG_2134.jpg', 'Under a million stars, my favorite view is still you ✨')">
+                <img src="images/IMG_2134.jpg" alt="Stargazing" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Stargazing'">
+                <div class="caption-overlay">Under the Stars ✨</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox('images/20260127_000032.jpg', 'Here is to a lifetime of celebrating us ❤️')">
+                <img src="images/20260127_000032.jpg" alt="Celebration Kiss" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Cheek+Kiss'">
+                <div class="caption-overlay">Forever & Always ❤️</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fullscreen Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Full View">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <!-- JavaScript for Seal & Lightbox -->
+    <script>
+        // Listen for both clicks and mobile taps securely
+        const seal = document.getElementById('seal');
+        if (seal) {
+            seal.addEventListener('click', openLetter);
+            seal.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                openLetter();
+            });
+        }
+
+        function openLetter() {
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const letterScreen = document.getElementById('letter-screen');
+
+            if (!envelopeScreen || !letterScreen) return;
+
+            envelopeScreen.style.opacity = '0';
+            envelopeScreen.style.transform = 'scale(1.08)';
+            
+            setTimeout(() => {
+                envelopeScreen.style.display = 'none';
+                letterScreen.style.display = 'flex';
+                
+                void letterScreen.offsetWidth; 
+                
+                letterScreen.style.opacity = '1';
+                window.scrollTo(0, 0);
+            }, 1000);
+        }
+
+        function openLightbox(imageSrc, captionText) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            lightboxImg.src = imageSrc;
+            lightboxCaption.textContent = captionText;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
