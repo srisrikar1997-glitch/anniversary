@@ -2,367 +2,806 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Happy Anniversary, Ramani ❤️</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --wine: #3a0b19;
+            --wine-deep: #240510;
+            --rose: #b83b5e;
+            --rose-soft: #e8a5b5;
+            --blush: #fbeaec;
+            --ivory: #fffaf4;
+            --gold: #b8924a;
+            --ink: #3b2430;
+            --script: 'Passions Conflict', 'Brush Script MT', cursive;
+            --serif: 'Cormorant Garamond', Georgia, serif;
         }
 
-        body, html {
+        * { box-sizing: border-box; }
+
+        html, body {
             margin: 0;
             padding: 0;
-            font-family: 'Georgia', serif;
-            background-color: #fdfaf6;
-            color: #4a4a4a;
-            overflow-x: hidden;
-            width: 100vw;
+            width: 100%;
             min-height: 100vh;
+            overflow-x: hidden;
+            font-family: var(--serif);
+            color: var(--ink);
+            background:
+                radial-gradient(1200px 600px at 50% -10%, #fff 0%, transparent 60%),
+                linear-gradient(180deg, var(--blush) 0%, #f6dce1 100%);
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Screen 1: Envelope & Wax Seal --- */
+        /* ---------- Floating hearts ---------- */
+        #hearts-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #env-hearts {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -60px;
+            width: var(--size);
+            height: var(--size);
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: rise var(--dur) linear var(--delay) forwards;
+        }
+
+        .heart svg { width: 100%; height: 100%; display: block; animation: sway var(--sway) ease-in-out var(--delay) infinite alternate; }
+
+        @keyframes rise {
+            0%   { transform: translate3d(0, 0, 0) rotate(var(--rot-a)); opacity: 0; }
+            10%  { opacity: var(--alpha); }
+            85%  { opacity: var(--alpha); }
+            100% { transform: translate3d(var(--drift), -115vh, 0) rotate(var(--rot-b)); opacity: 0; }
+        }
+
+        @keyframes sway {
+            from { transform: translateX(-12px); }
+            to   { transform: translateX(12px); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            12%      { transform: scale(1.08); }
+            24%      { transform: scale(1); }
+            36%      { transform: scale(1.05); }
+            50%      { transform: scale(1); }
+        }
+        @keyframes stampbeat {
+            0%, 100% { transform: rotate(-4deg) scale(1); }
+            12%      { transform: rotate(-4deg) scale(1.07); }
+            24%      { transform: rotate(-4deg) scale(1); }
+            36%      { transform: rotate(-4deg) scale(1.045); }
+            50%      { transform: rotate(-4deg) scale(1); }
+        }
+
+        /* ---------- Screen 1: sealed envelope ---------- */
         #envelope-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #fdfaf6;
-            z-index: 99999;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 1.2s ease, transform 1.2s ease;
+            gap: clamp(28px, 6vh, 56px);
+            padding: 24px;
+            background: radial-gradient(circle at 50% 45%, #5a1228 0%, var(--wine) 48%, var(--wine-deep) 100%);
+            transition: opacity 1.1s ease, transform 1.1s ease;
         }
 
         .instruction {
-            margin-bottom: 30px;
-            font-size: 1.25rem;
-            color: #d6336c;
-            font-style: italic;
-            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 2;
+            margin: 0;
             text-align: center;
-            padding: 0 20px;
+            font-family: var(--script);
+            font-size: clamp(2.2rem, 7vw, 3.2rem);
+            line-height: 1.1;
+            color: #f6d9df;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+            transition: opacity 0.6s ease;
+        }
+
+        .envelope-wrap {
+            position: relative;
+            z-index: 2;
+            width: min(88vw, 440px);
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            filter: drop-shadow(0 28px 34px rgba(0, 0, 0, 0.5));
+        }
+
+        .env-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #d79aab, #c48093);
+        }
+
+        /* the letter inside the envelope */
+        .env-letter {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            top: 7%;
+            height: 88%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 9%;
+            gap: 10px;
+            background: var(--ivory);
+            border-radius: 3px;
+            box-shadow: 0 0 0 1px rgba(184, 146, 74, 0.45) inset, 0 0 0 6px var(--ivory) inset, 0 0 0 7px rgba(184, 146, 74, 0.35) inset;
+            transition: transform 1.1s cubic-bezier(.3, .7, .2, 1);
+        }
+        .env-letter .l-title {
+            font-family: var(--script);
+            font-size: clamp(2.3rem, 8.5vw, 3.4rem);
+            line-height: 1;
+            color: var(--rose);
+        }
+        .env-letter svg { width: 18px; height: 18px; fill: var(--gold); }
+
+        /* front pocket */
+        .env-front {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .env-front i { position: absolute; inset: 0; display: block; }
+        .pocket-l { clip-path: polygon(0 0, 52% 54%, 0 100%); background: linear-gradient(100deg, #efcdd6, #f6dfe4); border-radius: 6px 0 0 6px; }
+        .pocket-r { clip-path: polygon(100% 0, 48% 54%, 100% 100%); background: linear-gradient(260deg, #ecc6d0, #f6dfe4); border-radius: 0 6px 6px 0; }
+        .pocket-b { clip-path: polygon(0 100%, 50% 46%, 100% 100%); background: linear-gradient(180deg, #fbebee, #f3d3db); border-radius: 0 0 6px 6px; }
+
+        .env-to {
+            position: absolute;
+            left: 0; right: 0;
+            bottom: 5%;
+            text-align: center;
+            font-family: var(--script);
+            font-size: clamp(1.9rem, 6.4vw, 2.5rem);
+            line-height: 1;
+            color: var(--wine);
+        }
+
+        /* flap */
+        .env-flap {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%;
+            height: 56%;
+            z-index: 4;
+            transform-origin: top center;
+            transform: perspective(1100px) rotateX(0deg);
+            transform-style: preserve-3d;
+            transition: transform 0.95s cubic-bezier(.5, 0, .2, 1), z-index 0s linear 0.45s;
+        }
+        .flap-face {
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .flap-front { background: linear-gradient(180deg, #f8e0e5 0%, #efc3cd 100%); border-radius: 6px 6px 0 0; }
+        .flap-back  { background: linear-gradient(0deg, #d79aab, #c48093); transform: rotateX(180deg); border-radius: 6px 6px 0 0; }
+
+        #envelope-screen.open .env-flap {
+            transform: perspective(1100px) rotateX(180deg);
+            z-index: 1;
+        }
+        #envelope-screen.rise .env-letter { transform: translateY(-60%); }
+
+        /* heart-shaped wax seal */
+        .seal-pos {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 6;
+            transform: translate(-50%, -50%);
+        }
+        .seal-pos::before {
+            content: "";
+            position: absolute;
+            inset: -34%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 110, 140, 0.38), transparent 68%);
+            animation: glow 2.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes glow {
+            0%, 100% { opacity: 0.45; transform: scale(0.9); }
+            12%      { opacity: 1; transform: scale(1.15); }
+            50%      { opacity: 0.55; transform: scale(0.95); }
         }
 
         .seal {
-            width: 130px;
-            height: 130px;
-            background: radial-gradient(circle at 30% 30%, #e52d27, #b31217 70%, #7a080b 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffd700;
-            font-size: 1.6rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            box-shadow: 0 8px 25px rgba(179, 18, 23, 0.4), 
-                        inset 0 0 15px rgba(0, 0, 0, 0.4),
-                        inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            position: relative;
+            width: clamp(128px, 38vw, 168px);
+            aspect-ratio: 480 / 496;
             cursor: pointer;
-            border: 4px double #9e1b1f;
             user-select: none;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
             -webkit-tap-highlight-color: transparent;
+            transform: rotate(-4deg);
+            animation: stampbeat 2.2s ease-in-out infinite;
+        }
+        .stamp-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+        }
+        .seal-names {
+            position: absolute;
+            left: 50%;
+            top: 51%;
+            transform: translate(-50%, -50%) rotate(-3deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: var(--script);
+            font-size: clamp(1.45rem, 4.6vw, 1.95rem);
+            line-height: 0.8;
+            color: #2a0a12;
+            text-shadow: 0 0 1px rgba(42, 10, 18, 0.7);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .seal:focus-visible { outline: 3px solid var(--rose-soft); outline-offset: 8px; border-radius: 12px; }
+
+        #envelope-screen.breaking .seal { animation: sealPop 0.65s ease-in forwards; }
+        #envelope-screen.breaking .seal-pos::before { animation: none; opacity: 0; }
+        #envelope-screen.breaking .instruction { opacity: 0; }
+
+        @keyframes sealPop {
+            0%   { transform: rotate(-4deg) scale(1); opacity: 1; }
+            35%  { transform: rotate(-8deg) scale(1.2); opacity: 1; }
+            100% { transform: rotate(8deg) scale(0.35); opacity: 0; }
         }
 
-        .seal:active {
-            transform: scale(0.92);
-        }
-
-        /* --- Screen 2: Letter & Gallery --- */
+        /* ---------- Screen 2: letter ---------- */
         #letter-screen {
             display: none;
             opacity: 0;
+            position: relative;
+            z-index: 2;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 720px;
+            max-width: 760px;
             margin: 0 auto;
-            padding: 40px 20px 60px;
-            text-align: center;
-            transition: opacity 1.5s ease;
+            padding: 56px 20px 90px;
+            transition: opacity 1.6s ease;
         }
 
         .letter-content {
-            background: #ffffff;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
-            margin-bottom: 45px;
-            border: 1px solid #f2e6d8;
+            position: relative;
             width: 100%;
+            padding: 64px 44px 56px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0) 160px),
+                var(--ivory);
+            border-radius: 4px;
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                0 2px 4px rgba(90, 20, 40, 0.06),
+                0 24px 60px -12px rgba(90, 20, 40, 0.28);
+        }
+        .letter-content::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border: 1px solid rgba(184, 146, 74, 0.55);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+        .letter-content::after {
+            content: "";
+            position: absolute;
+            inset: 19px;
+            border: 1px solid rgba(184, 146, 74, 0.22);
+            border-radius: 1px;
+            pointer-events: none;
         }
 
         h1 {
-            color: #d6336c;
-            font-size: 2rem;
-            margin-top: 0;
-            margin-bottom: 20px;
+            margin: 0;
+            text-align: center;
+            font-family: var(--script);
+            font-weight: 400;
+            font-size: clamp(3.6rem, 12vw, 5.6rem);
+            line-height: 0.95;
+            color: var(--rose);
         }
 
-        p {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-bottom: 18px;
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin: 22px auto 40px;
+            max-width: 280px;
+            color: var(--gold);
+        }
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .ornament::after { transform: scaleX(-1); }
+        .ornament svg { width: 18px; height: 18px; fill: currentColor; flex: none; animation: heartbeat 2.2s ease-in-out infinite; }
+
+        .letter-body {
+            font-family: var(--script);
+            font-size: clamp(1.85rem, 5vw, 2.35rem);
+            line-height: 1.5;
+            color: var(--ink);
+            padding: 0 4px;
+        }
+        .letter-body p { margin: 0 0 0.85em; }
+        .letter-body p:first-child::first-letter {
+            font-size: 1.9em;
+            line-height: 0;
+            color: var(--rose);
+            padding-right: 2px;
+        }
+
+        .finale {
+            text-align: center;
+            color: var(--rose);
+            font-size: 1.2em;
+            line-height: 1.25;
+            margin-top: 1.1em;
         }
 
         .signature {
-            margin-top: 30px;
-            font-style: italic;
-            font-weight: bold;
-            color: #b31217;
+            margin-top: 0.8em;
+            text-align: right;
+            color: var(--rose);
+            font-size: 1.15em;
+            line-height: 1.1;
         }
+        .signature .name { display: block; font-size: 1.45em; margin-top: 4px; }
 
-        .section-title {
-            color: #d6336c;
-            margin-bottom: 8px;
-            font-size: 1.75rem;
-        }
-
-        .section-subtitle {
-            color: #888;
-            font-size: 0.95rem;
-            font-style: italic;
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-
-        /* --- 2-Column Gallery Grid --- */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            width: 100%;
-        }
-
-        @media (max-width: 520px) {
-            .gallery-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+        /* ---------- Photos woven into the letter ---------- */
+        .moment {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 34px 26px;
+            margin: 1.3rem auto 2.4rem;
+            font-size: 1rem;
         }
 
         .gallery-item {
-            width: 100%;
-            height: 280px;
-            background-color: #f8edeb;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
             position: relative;
+            margin: 0;
+            background: #fff;
+            padding: 12px 12px 0;
+            box-shadow:
+                0 2px 3px rgba(60, 10, 30, 0.08),
+                0 18px 34px -10px rgba(60, 10, 30, 0.35);
             cursor: pointer;
+            transform: rotate(var(--tilt, 0deg));
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .gallery-item:hover,
+        .gallery-item:focus-visible {
+            transform: rotate(0deg) translateY(-6px) scale(1.02);
+            box-shadow:
+                0 2px 3px rgba(60, 10, 30, 0.08),
+                0 28px 44px -12px rgba(60, 10, 30, 0.42);
+            outline: none;
+            z-index: 3;
+        }
+        .gallery-item::before {
+            content: "";
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            width: 74px;
+            height: 22px;
+            transform: translateX(-50%) rotate(-2deg);
+            background: rgba(232, 196, 140, 0.55);
+            border-left: 1px dashed rgba(150, 110, 50, 0.25);
+            border-right: 1px dashed rgba(150, 110, 50, 0.25);
+            z-index: 2;
         }
 
-        .gallery-item img {
+        .moment .gallery-item { flex: 1 1 230px; max-width: 290px; }
+        .moment.left  .gallery-item { --tilt: -1.8deg; }
+        .moment.right .gallery-item { --tilt: 1.6deg; }
+        .moment.pair .gallery-item:nth-child(1) { --tilt: -2deg; }
+        .moment.pair .gallery-item:nth-child(2) { --tilt: 1.8deg; margin-top: 18px; }
+
+        .photo {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f7d6dd, #f1b7c4);
+            position: relative;
+        }
+        .photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center center;
-            transition: transform 0.4s ease;
+            display: block;
+            transition: transform 0.7s ease;
         }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
+        .gallery-item:hover .photo img { transform: scale(1.05); }
 
         .caption-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
-            color: #fff;
-            padding: 20px 12px 10px;
-            font-size: 0.9rem;
+            padding: 6px 4px 12px;
             text-align: center;
-            opacity: 0.95;
+            font-family: var(--script);
+            font-size: 2.1rem;
+            line-height: 1.15;
+            color: var(--wine);
         }
 
-        /* --- Fullscreen Lightbox Modal --- */
+        @media (max-width: 560px) {
+            .letter-content { padding: 52px 26px 44px; }
+            .moment.pair .gallery-item:nth-child(2) { margin-top: 0; }
+        }
+
+        /* ---------- Lightbox ---------- */
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            inset: 0;
+            z-index: 2000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
+            background: rgba(28, 4, 12, 0.94);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            cursor: zoom-out;
         }
-
         #lightbox img {
-            max-width: 95%;
-            max-height: 80vh;
-            border-radius: 8px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            max-width: 94%;
+            max-height: 78vh;
+            padding: 10px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
             object-fit: contain;
         }
-
         #lightbox-caption {
-            color: #fff;
-            margin-top: 15px;
-            font-size: 1.1rem;
+            margin-top: 22px;
+            max-width: 88%;
             text-align: center;
-            max-width: 85%;
+            font-family: var(--script);
+            font-size: clamp(1.9rem, 6vw, 2.6rem);
+            line-height: 1.2;
+            color: #f6d9df;
         }
-
         .close-lightbox {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            color: #fff;
-            font-size: 2.2rem;
+            top: 14px;
+            right: 22px;
+            color: #f6d9df;
+            font-size: 2.6rem;
+            line-height: 1;
             cursor: pointer;
             user-select: none;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.06); }
-            100% { transform: scale(1); }
+        @media (prefers-reduced-motion: reduce) {
+            .seal, .ornament svg, .seal-pos::before { animation: none; }
+            .heart { display: none; }
+            .gallery-item, .photo img, .env-flap, .env-letter { transition-duration: 0.01s; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SCREEN 1: The Seal -->
+    <div id="hearts-layer" aria-hidden="true"></div>
+
+    <!-- SCREEN 1: sealed envelope -->
     <div id="envelope-screen">
-        <p class="instruction">💋 Kiss (tap) the seal to open your letter</p>
-        <div class="seal" id="seal">
-            S ❤️ R
+        <div id="env-hearts" aria-hidden="true"></div>
+        <p class="instruction">Kiss the seal to open your letter</p>
+
+        <div class="envelope-wrap">
+            <div class="envelope" id="envelope">
+                <div class="env-back"></div>
+
+                <div class="env-letter" aria-hidden="true">
+                    <span class="l-title">Happy Anniversary</span>
+                    <svg viewBox="0 0 24 24"><path d="M12 21.2 3.9 13.4C1.2 10.8 1.3 6.7 4 4.6c2.3-1.8 5.4-1.1 7 1.1l1 1.3 1-1.3c1.6-2.2 4.7-2.9 7-1.1 2.7 2.1 2.8 6.2.1 8.8L12 21.2z"/></svg>
+                </div>
+
+                <div class="env-front">
+                    <i class="pocket-l"></i>
+                    <i class="pocket-r"></i>
+                    <i class="pocket-b"></i>
+                    <div class="env-to">To my Ramani</div>
+                </div>
+
+                <div class="env-flap">
+                    <div class="flap-face flap-front"></div>
+                    <div class="flap-face flap-back"></div>
+                </div>
+
+                <div class="seal-pos">
+                    <div class="seal" id="seal" role="button" tabindex="0" aria-label="Kiss the seal to open the letter">
+                        <img class="stamp-img" src="images/stamp-seal.png" alt="" draggable="false">
+                        <span class="seal-names"><span>Srikar</span><span>Ramani</span></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 2: The Letter & Gallery -->
+    <!-- SCREEN 2: the letter -->
     <div id="letter-screen">
         <div class="letter-content">
-            <h1>Happy Anniversary, Ramani ❤️</h1>
-            <p>My dearest Cherry,</p>
-            <p>From our cozy date nights and the night I asked you to marry me, to wandering through canyons, stargazing under desert skies, and celebrating every little milestone at home—every moment with you is my favorite memory.</p>
-            <p>Thank you for being my partner, my best friend, and my greatest adventure. Here is a look back at some of the moments that made our story so special.</p>
-            <p class="signature">Forever yours,<br>Srikar</p>
-        </div>
-
-        <h2 class="section-title">Our Story in 10 Moments</h2>
-        <p class="section-subtitle">Tap any photo to view it full screen</p>
-        
-        <!-- Gallery Grid with Original Filenames -->
-        <div class="gallery-container">
-            
-            <div class="gallery-item" onclick="openLightbox('images/PXL_20231005_231701443(1).jpg', 'Our cozy dinner date night ❤️')">
-                <img src="images/PXL_20231005_231701443(1).jpg" alt="Dinner Date" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Dinner+Date'">
-                <div class="caption-overlay">Date Night</div>
+            <h1>Happy Anniversary, Ramani</h1>
+            <div class="ornament" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21.2 3.9 13.4C1.2 10.8 1.3 6.7 4 4.6c2.3-1.8 5.4-1.1 7 1.1l1 1.3 1-1.3c1.6-2.2 4.7-2.9 7-1.1 2.7 2.1 2.8 6.2.1 8.8L12 21.2z"/></svg>
             </div>
 
-            <div class="gallery-item" onclick="openLightbox('images/20231008_195418(1).jpg', 'That smile that stole my heart ✨')">
-                <img src="images/20231008_195418(1).jpg" alt="Ramani in Yellow" style="object-position: center 25%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Yellow+Saree'">
-                <div class="caption-overlay">Golden Glow</div>
-            </div>
+            <div class="letter-body">
+                <p>The best moments of my life got unlocked with your subscription.</p>
+                <p>It all got started with that candlelit date we had, and since then, life has taken us through mountains and valleys, beaches and oceans. We have seen our share of ups and downs, and through all of it, we have built moments worth savoring to remember the very best of us.</p>
 
-            <div class="gallery-item" onclick="openLightbox('images/PXL_20231014_235847709.jpg', 'The easiest question I ever asked 🌹')">
-                <img src="images/PXL_20231014_235847709.jpg" alt="Marry Me Roses" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Marry+Me+Roses'">
-                <div class="caption-overlay">Marry Me? 🌹</div>
-            </div>
+                <div class="moment left">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/PXL_20231005_231701443_1_.jpg" alt="Candlelit dinner date" loading="lazy" decoding="async" style="object-position: 48% center;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Where it all began</figcaption>
+                    </figure>
+                </div>
 
-            <div class="gallery-item" onclick="openLightbox('images/20231015_005250_1.jpg', 'The moment you said Yes! 💍')">
-                <img src="images/20231015_005250_1.jpg" alt="The Proposal" style="object-position: center 20%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=The+Proposal'">
-                <div class="caption-overlay">She Said Yes 💍</div>
-            </div>
+                <div class="moment pair">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/IMG_1810.JPG" alt="Turquoise pool in a canyon" loading="lazy" decoding="async" style="object-position: 70% center;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Valleys &amp; still waters</figcaption>
+                    </figure>
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/IMG_8078.JPG" alt="Hilltop over the sea" loading="lazy" decoding="async" style="object-position: 60% center;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Horizons with you</figcaption>
+                    </figure>
+                </div>
 
-            <div class="gallery-item" onclick="openLightbox('images/20231231_111316800_iOS.jpg', 'Royal vibes together 🏰')">
-                <img src="images/20231231_111316800_iOS.jpg" alt="Palace Portrait" style="object-position: center 35%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Palace+Portrait'">
-                <div class="caption-overlay">Royal Vibes</div>
-            </div>
+                <p>For the longest time, I haven't known how to put my feelings into words. Whenever you ask me why I love you, my mind goes blank and I end up staying quiet. I always thought what I felt for you was just blind love—something I felt deeply but couldn't explain. Because I could never find the right words, I never properly took the opportunity to tell you why I love you so much.</p>
 
-            <div class="gallery-item" onclick="openLightbox('images/IMG_0395.jpg', 'Lighting up our home and our lives 🪔')">
-                <img src="images/IMG_0395.jpg" alt="Festive Hug" style="object-position: center 25%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Festive+Smiles'">
-                <div class="caption-overlay">Festive Smiles 🪔</div>
-            </div>
+                <div class="moment pair">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/PXL_20231014_235847709.jpg" alt="Marry me, spelled in roses and candles" loading="lazy" decoding="async" style="object-position: center center;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">I asked with roses</figcaption>
+                    </figure>
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/20231015_005250_1.jpg" alt="The proposal" loading="lazy" decoding="async" style="object-position: center 40%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">You said yes</figcaption>
+                    </figure>
+                </div>
 
-            <div class="gallery-item" onclick="openLightbox('images/IMG_1810.jpg', 'Exploring turquoise waters with my favorite travel partner 🌊')">
-                <img src="images/IMG_1810.jpg" alt="Turquoise Canyon" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Canyon+Waters'">
-                <div class="caption-overlay">Wadi Adventures 🌊</div>
-            </div>
+                <p>I also know that you are a deeply romantic person who loves surprises, and you ended up with a guy who isn't naturally good at grand gestures. Yet, you stayed patient with me. When I actually sit down and look at our life together, my love for you isn't blind at all. I have so many reasons why it has always been you.</p>
 
-            <div class="gallery-item" onclick="openLightbox('images/IMG_1709.jpg', 'City lights and mountain nights 🌃')">
-                <img src="images/IMG_1709.jpg" alt="City Lights Viewpoint" style="object-position: center 65%;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Night+Viewpoint'">
-                <div class="caption-overlay">City Lights 🌃</div>
-            </div>
+                <div class="moment right">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/20231008_195418_1_.jpg" alt="Ramani smiling in a yellow saree" loading="lazy" decoding="async" style="object-position: center 30%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">That smile</figcaption>
+                    </figure>
+                </div>
 
-            <div class="gallery-item" onclick="openLightbox('images/IMG_2134.jpg', 'Under a million stars, my favorite view is still you ✨')">
-                <img src="images/IMG_2134.jpg" alt="Stargazing" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Stargazing'">
-                <div class="caption-overlay">Under the Stars ✨</div>
-            </div>
+                <p>I love you for the warmth you bring into my quiet world. I love the feeling I get when you let your guard down and behave cute with me. I love when you surprise me by cooking a special dish just to make me happy. I might not do big, flashy surprises, but taking you out after a long, exhausting day is my favorite way to unwind—because being around you doesn't drain my energy, it brings me back to life. And at the end of every day, simply getting to hug you and fall asleep is the only place I feel completely at peace.</p>
 
-            <div class="gallery-item" onclick="openLightbox('images/20260127_000032.jpg', 'Here is to a lifetime of celebrating us ❤️')">
-                <img src="images/20260127_000032.jpg" alt="Celebration Kiss" style="object-position: center bottom;" onerror="this.src='https://via.placeholder.com/400x300/ffe6ea/d6336c?text=Cheek+Kiss'">
-                <div class="caption-overlay">Forever & Always ❤️</div>
-            </div>
+                <div class="moment pair">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/IMG_1709.JPG" alt="City lights from a hilltop at night" loading="lazy" decoding="async" style="object-position: center 75%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">City lights, just us</figcaption>
+                    </figure>
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/IMG_2134.JPG" alt="Stargazing together" loading="lazy" decoding="async" style="object-position: center bottom;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Under our stars</figcaption>
+                    </figure>
+                </div>
 
+                <p>I love you for how much you have grown with me. We used to fight a lot, and things used to get heated so quickly. Now, I see how much effort you put into calming down and explaining things to me gently instead of fighting. Watching you soften your anger just so we can understand each other makes me respect you more than I usually say out loud, and it makes me never, ever want to hurt you.</p>
+
+                <div class="moment left">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/H41A3888.JPG" alt="Together in traditional wear" loading="lazy" decoding="async" style="object-position: center 25%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Grown together</figcaption>
+                    </figure>
+                </div>
+
+                <p>Most of all, I love you because you are 100% on my team. In every situation, you make me feel like your first priority. I love the way you stand up for me and look out for my happiness. Knowing that you always have my back makes me feel cared for in a way nobody else ever has.</p>
+
+                <div class="moment pair">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/IMG_0395.JPG" alt="Festive evening with diya lights" loading="lazy" decoding="async" style="object-position: center 30%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Lighting up our home</figcaption>
+                    </figure>
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/20260127_000032.jpg" alt="A kiss on the cheek under roses and balloons" loading="lazy" decoding="async" style="object-position: center 45%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Still falling for you</figcaption>
+                    </figure>
+                </div>
+
+                <p>I miss you the second you aren't around because you are my comfort, my peace, and my home. I may not always be the most emotional or expressive guy in the room, but every single day, I am grateful that my life is tied to yours.</p>
+
+                <div class="moment pair">
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/20231230_121351516_iOS.jpg" alt="Hugging at sunset in the desert" loading="lazy" decoding="async" style="object-position: center 45%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Home is in your arms</figcaption>
+                    </figure>
+                    <figure class="gallery-item" tabindex="0" onclick="openLightbox(this)">
+                        <div class="photo"><img src="images/20231231_111316800_iOS.jpg" alt="In front of a golden haveli" loading="lazy" decoding="async" style="object-position: center 40%;" onerror="this.style.display='none'"></div>
+                        <figcaption class="caption-overlay">Royal vibes</figcaption>
+                    </figure>
+                </div>
+
+                <p class="finale">Happy Anniversary, Ramani. Here is to renewing this subscription for the rest of our lives.</p>
+                <div class="signature">Forever yours,<span class="name">Srikar</span></div>
+            </div>
         </div>
     </div>
 
-    <!-- Fullscreen Lightbox -->
+    <!-- Fullscreen photo viewer -->
     <div id="lightbox" onclick="closeLightbox()">
         <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="" alt="Full View">
+        <img id="lightbox-img" src="" alt="Full view">
         <div id="lightbox-caption"></div>
     </div>
 
-    <!-- JavaScript for Seal & Lightbox -->
     <script>
-        // Listen for both clicks and mobile taps securely
-        const seal = document.getElementById('seal');
-        if (seal) {
-            seal.addEventListener('click', openLetter);
-            seal.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                openLetter();
-            });
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const HEART_COLORS = ['#b83b5e', '#d4607f', '#e8a5b5', '#c9455f', '#f2b8c6'];
+
+        function heartSVG(color) {
+            return '<svg viewBox="0 0 24 24" fill="' + color + '"><path d="M12 21.2 3.9 13.4C1.2 10.8 1.3 6.7 4 4.6c2.3-1.8 5.4-1.1 7 1.1l1 1.3 1-1.3c1.6-2.2 4.7-2.9 7-1.1 2.7 2.1 2.8 6.2.1 8.8L12 21.2z"/></svg>';
         }
 
-        function openLetter() {
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const letterScreen = document.getElementById('letter-screen');
+        // Hearts that rise slowly, sway and fade
+        function spawnRisingHeart(container, light) {
+            const el = document.createElement('div');
+            el.className = 'heart';
+            const size = 12 + Math.random() * 22;
+            const dur = 9 + Math.random() * 9;
+            el.style.left = (Math.random() * 100) + '%';
+            el.style.setProperty('--size', size + 'px');
+            el.style.setProperty('--dur', dur + 's');
+            el.style.setProperty('--sway', (2.5 + Math.random() * 2.5) + 's');
+            el.style.setProperty('--delay', '0s');
+            el.style.setProperty('--drift', ((Math.random() - 0.5) * 120) + 'px');
+            el.style.setProperty('--rot-a', ((Math.random() - 0.5) * 30) + 'deg');
+            el.style.setProperty('--rot-b', ((Math.random() - 0.5) * 60) + 'deg');
+            el.style.setProperty('--alpha', (light ? 0.55 : 0.32) + Math.random() * 0.25);
+            el.innerHTML = heartSVG(HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]);
+            container.appendChild(el);
+            setTimeout(() => el.remove(), dur * 1000 + 500);
+        }
 
-            if (!envelopeScreen || !letterScreen) return;
+        function startHearts(container, interval, light) {
+            if (reduceMotion) return null;
+            for (let i = 0; i < 6; i++) setTimeout(() => spawnRisingHeart(container, light), i * 350);
+            return setInterval(() => spawnRisingHeart(container, light), interval);
+        }
 
-            envelopeScreen.style.opacity = '0';
-            envelopeScreen.style.transform = 'scale(1.08)';
-            
+        // Burst of hearts from the seal when it is kissed
+        function burstHearts(x, y) {
+            if (reduceMotion) return;
+            const n = 28;
+            for (let i = 0; i < n; i++) {
+                const el = document.createElement('div');
+                const size = 14 + Math.random() * 20;
+                el.style.cssText = 'position:fixed;z-index:1500;pointer-events:none;width:' + size + 'px;height:' + size + 'px;left:' + (x - size / 2) + 'px;top:' + (y - size / 2) + 'px;';
+                el.innerHTML = heartSVG(HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]);
+                document.body.appendChild(el);
+
+                const angle = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.4;
+                const dist = 110 + Math.random() * 190;
+                const dx = Math.cos(angle) * dist;
+                const dy = Math.sin(angle) * dist - 70;
+                const rot = (Math.random() - 0.5) * 140;
+
+                el.animate([
+                    { transform: 'translate(0,0) scale(0.2) rotate(0deg)', opacity: 1 },
+                    { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(1) rotate(' + rot + 'deg)', opacity: 1, offset: 0.55 },
+                    { transform: 'translate(' + (dx * 1.15) + 'px,' + (dy + 90) + 'px) scale(0.8) rotate(' + (rot * 1.3) + 'deg)', opacity: 0 }
+                ], { duration: 1500 + Math.random() * 700, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' })
+                  .onfinish = () => el.remove();
+            }
+        }
+
+        const screenEl = document.getElementById('envelope-screen');
+        const letterScreen = document.getElementById('letter-screen');
+        const seal = document.getElementById('seal');
+        const envTimer = startHearts(document.getElementById('env-hearts'), 900, true);
+        let opened = false;
+
+        function handleOpen(e) {
+            if (e) e.preventDefault();
+            if (opened) return;
+            opened = true;
+
+            const r = seal.getBoundingClientRect();
+            const t = reduceMotion ? 0.25 : 1;
+
+            // 1. seal breaks with a burst of hearts
+            screenEl.classList.add('breaking');
+            burstHearts(r.left + r.width / 2, r.top + r.height / 2);
+
+            // 2. flap opens
+            setTimeout(() => screenEl.classList.add('open'), 450 * t);
+            // 3. letter slides out
+            setTimeout(() => screenEl.classList.add('rise'), 1250 * t);
+            // 4. envelope fades away into the full letter
             setTimeout(() => {
-                envelopeScreen.style.display = 'none';
+                screenEl.style.opacity = '0';
+                screenEl.style.transform = 'scale(1.06)';
+            }, 2450 * t);
+            setTimeout(() => {
+                screenEl.style.display = 'none';
+                if (envTimer) clearInterval(envTimer);
                 letterScreen.style.display = 'flex';
-                
-                void letterScreen.offsetWidth; 
-                
+                void letterScreen.offsetWidth;
                 letterScreen.style.opacity = '1';
                 window.scrollTo(0, 0);
-            }, 1000);
+                startHearts(document.getElementById('hearts-layer'), 1700, false);
+            }, 3500 * t);
         }
 
-        function openLightbox(imageSrc, captionText) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxCaption = document.getElementById('lightbox-caption');
+        seal.addEventListener('click', handleOpen);
+        seal.addEventListener('touchend', handleOpen);
+        seal.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') handleOpen(e);
+        });
 
-            lightboxImg.src = imageSrc;
-            lightboxCaption.textContent = captionText;
-            lightbox.style.display = 'flex';
+        // Photo viewer
+        function openLightbox(figure) {
+            const img = figure.querySelector('img');
+            const cap = figure.querySelector('figcaption');
+            if (!img) return;
+            document.getElementById('lightbox-img').src = img.getAttribute('src');
+            document.getElementById('lightbox-caption').textContent = cap ? cap.textContent : '';
+            document.getElementById('lightbox').style.display = 'flex';
         }
-
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Enter' && document.activeElement && document.activeElement.classList.contains('gallery-item')) {
+                document.activeElement.click();
+            }
+        });
     </script>
 </body>
 </html>
